@@ -9,5 +9,5 @@ echo "Use one of the following:
 
  /assets/generate_apiserver.sh : Generates API certificates
  /assets/generate_etcd.sh : Generates etcd certificates
- /assets/generate_node.sh : Generates node (worker) certificates
+ /assets/generate_worker.sh : Generates node (worker) certificates
 "

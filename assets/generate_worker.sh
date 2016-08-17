@@ -6,22 +6,14 @@ mkdir -p /output/kubernetes/ssl
 mkdir -p /output/etcd/ssl
 
 # Variables are:
-# SERVICE_DNS_NAME - defaults to localhost
-# SERVICE_IP - defaults to 127.0.0.1
+# WORKER_IP - defaults to 127.0.0.1
 # HOST_IP - defaults to 127.0.0.1
 
-if [ -z "$SERVICE_DNS_NAME" ]; then
-  export SERVICE_DNS_NAME=localhost 
-  echo "Did not find Service DNS Name - defaulting to ${SERVICE_DNS_NAME}";
+if [ -z "$WORKER_IP" ]; then
+  export WORKER_IP=127.0.0.1
+  echo "Did not find Node IP - defaulting to ${WORKER_IP}";
 else
-  echo "Found Service DNS Name - ${SERVICE_DNS_NAME}";
-fi
-
-if [ -z "$SERVICE_IP" ]; then
-  export SERVICE_IP=127.0.0.1
-  echo "Did not find Service IP - defaulting to ${SERVICE_IP}";
-else
-  echo "Found Service IP - ${SERVICE_IP}";
+  echo "Found Node IP - ${NODE_IP}";
 fi
 
 if [ -z "$HOST_IP" ]; then
