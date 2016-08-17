@@ -3,11 +3,7 @@
 # Assumes /input/ has ca.pem and ca-key.pem
 
 mkdir -p /output/kubernetes/ssl
-# Checking to see if we need to do anything
-if [[ -f /output/kubernetes/ssl/apiserver.pem && -f /output/kubernetes/ssl/apiserver-key.pem && -f /output/kubernetes/ssl/ca.pem ]]; then
-  echo "Certificates are in order, leaving"
-  exit
-fi
+mkdir -p /output/etcd/ssl
 
 # Variables are:
 # SERVICE_DNS_NAME - defaults to localhost
@@ -39,6 +35,9 @@ cp /input/ca.pem /output/kubernetes/ssl/ca.pem
 openssl genrsa -out /output/kubernetes/ssl/apiserver-key.pem 2048
 openssl req -new -key /output/kubernetes/ssl/apiserver-key.pem -out /output/kubernetes/ssl/apiserver.csr -subj "/CN=kube-apiserver" -config /assets/apiserver.conf
 openssl x509 -req -in /output/kubernetes/ssl/apiserver.csr -CA /output/kubernetes/ssl/ca.pem -CAkey /input/ca-key.pem -CAcreateserial -out /output/kubernetes/ssl/apiserver.pem -days 3650 -extensions v3_req -extfile /assets/apiserver.conf
+cp /output/kubernetes/ssl/ca.pem /output/etcd/ssl/ca.pem
+cp /output/kubernetes/ssl/worker.pem /output/etcd/ssl/client.pem
+cp /output/kubernetes/ssl/worker-key.pem /output/etcd/ssl/client-key.pem
 
 
 
