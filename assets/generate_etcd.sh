@@ -38,6 +38,12 @@ else
   echo "Found Host IP - ${HOST_IP}";
 fi
 
+
+cp /input/ca.pem /output/etcd/ssl/peer-ca.pem
+openssl genrsa -out /output/etcd/ssl/peer-key.pem 2048
+openssl req -new -key /output/etcd/ssl/peer-key.pem -out /output/etcd/ssl/peer.csr -subj "/CN=etcd-peer" -config /assets/etcd_peer.conf
+openssl x509 -req -in /output/etcd/ssl/peer.csr -CA /output/etcd/ssl/peer-ca.pem -CAkey /input/ca-key.pem -CAcreateserial -out /output/etcd/ssl/peer.pem -days 3650 -extensions v3_req -extfile /assets/etcd_peer.conf
+
 cp /input/ca.pem /output/etcd/ssl/server-ca.pem
 openssl genrsa -out /output/etcd/ssl/server-key.pem 2048
 openssl req -new -key /output/etcd/ssl/server-key.pem -out /output/etcd/ssl/server.csr -subj "/CN=etcd-server" -config /assets/etcd_server.conf
@@ -47,5 +53,4 @@ cp /input/ca.pem /output/etcd/ssl/client-ca.pem
 openssl genrsa -out /output/etcd/ssl/client-key.pem 2048
 openssl req -new -key /output/etcd/ssl/client-key.pem -out /output/etcd/ssl/client.csr -subj "/CN=etcd-client" -config /assets/etcd_client.conf
 openssl x509 -req -in /output/etcd/ssl/client.csr -CA /output/etcd/ssl/client-ca.pem -CAkey /input/ca-key.pem -CAcreateserial -out /output/etcd/ssl/client.pem -days 3650 -extensions v3_req -extfile /assets/etcd_client.conf
-
 
