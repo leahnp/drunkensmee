@@ -6,6 +6,7 @@ mkdir -p /output/etcd/ssl
 
 # Variables are:
 # SERVICE_DNS_NAME - defaults to localhost
+# HOST_DNS_NAME - defaults to localhost
 # SERVICE_IP - defaults to 127.0.0.1
 # HOST_IP - defaults to 127.0.0.1
 
@@ -14,6 +15,13 @@ if [ -z "$SERVICE_DNS_NAME" ]; then
   echo "Did not find Service DNS Name - defaulting to ${SERVICE_DNS_NAME}";
 else
   echo "Found Service DNS Name - ${SERVICE_DNS_NAME}";
+fi
+
+if [ -z "$HOST_DNS_NAME" ]; then
+  export HOST_DNS_NAME=localhost
+  echo "Did not find Host DNS Name - defaulting to ${HOST_DNS_NAME}";
+else
+  echo "Found Host IP - ${HOST_DNS_NAME}";
 fi
 
 if [ -z "$SERVICE_IP" ]; then
