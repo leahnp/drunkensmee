@@ -19,7 +19,7 @@ else
 fi
 
 if [ -z "$CUSTOM_API_DNS" ]; then
-  export SERVICE_DNS_NAME=localhost 
+  export CUSTOM_API_DNS=localhost 
   echo "Did not find a custom ELB DNS Name for the API Server - defaulting to ${CUSTOM_API_DNS}";
 else
   echo "Found custom ELB DNS Name for the API Server - ${CUSTOM_API_DNS}";
