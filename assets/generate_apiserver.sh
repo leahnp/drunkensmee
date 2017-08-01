@@ -7,6 +7,7 @@ mkdir -p /output/etcd/ssl
 
 # Variables are:
 # SERVICE_DNS_NAME - defaults to localhost
+# CUSTOM_API_DNS - defaults to localhost
 # SERVICE_IP - defaults to 127.0.0.1
 # HOST_IP - defaults to 127.0.0.1
 
@@ -15,6 +16,13 @@ if [ -z "$SERVICE_DNS_NAME" ]; then
   echo "Did not find Service DNS Name - defaulting to ${SERVICE_DNS_NAME}";
 else
   echo "Found Service DNS Name - ${SERVICE_DNS_NAME}";
+fi
+
+if [ -z "$CUSTOM_API_DNS" ]; then
+  export CUSTOM_API_DNS=localhost 
+  echo "Did not find a custom ELB DNS Name for the API Server - defaulting to ${CUSTOM_API_DNS}";
+else
+  echo "Found custom ELB DNS Name for the API Server - ${CUSTOM_API_DNS}";
 fi
 
 if [ -z "$SERVICE_IP" ]; then
